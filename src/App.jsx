@@ -14,8 +14,8 @@ import EventsPage from './pages/events/EventsPage';
 import PostsPage from './pages/posts/PostsPage';
 import UsersPage from './pages/users/UsersPage';
 import LivePage from './pages/live/LivePage';
-import ProfilePage from './pages/profile/ProfilePage';
-import NotFoundPage from './pages/NotFoundPage';
+import ProfilePage from './pages/users/ProfilePage';
+import NotFoundPage from './pages/notfound/NotFoundPage';
 
 // Protected Route Component
 const ProtectedRoute = ({ children, requiredRole }) => {
