@@ -1,6 +1,6 @@
+/* src/index.css */
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
 @import "tailwindcss";
-
 
 @theme {
   /* Colors */
@@ -29,11 +29,12 @@
   /* Font Family */
   --font-sans: 'Inter', system-ui, sans-serif;
 
-  /* Box Shadow */
+  /* Box Shadow - Plus prononcées */
   --shadow-soft: 0 2px 15px -3px rgba(0, 0, 0, 0.07), 0 10px 20px -2px rgba(0, 0, 0, 0.04);
+  --shadow-elevated: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  --shadow-hover: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
 }
 
-/* Base Styles - Plus de @apply, on utilise des classes Tailwind directement */
 * {
   border-color: theme(colors.gray.200);
 }
@@ -50,16 +51,23 @@ html {
   scroll-behavior: smooth;
 }
 
-/* Custom Component Classes - En CSS natif */
+/* ============================================
+   BOUTONS - Améliorés avec bordures et ombres
+   ============================================ */
+
 .btn {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  padding: 0.5rem 1rem;
+  padding: 0.625rem 1.25rem; /* Plus d'espace */
   border-radius: 0.5rem;
-  font-weight: 500;
-  transition: all 0.2s;
+  font-weight: 600; /* Plus gras */
+  font-size: 0.875rem;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
   outline: none;
+  border: 1px solid transparent;
+  box-shadow: var(--shadow-elevated); /* Ombre par défaut */
+  cursor: pointer;
 }
 
 .btn:focus {
@@ -68,69 +76,148 @@ html {
 }
 
 .btn:disabled {
-  opacity: 0.5;
+  opacity: 0.6;
   cursor: not-allowed;
+  box-shadow: none;
 }
 
+/* Primary Button - Plus d'élévation */
 .btn-primary {
-  background-color: theme(colors.primary.600);
+  background: linear-gradient(135deg, theme(colors.primary.600) 0%, theme(colors.primary.700) 100%);
   color: white;
+  border: 1px solid theme(colors.primary.700);
+  border-radius: .35rem;
+  padding: .375rem .75rem;
+  box-shadow: 0 4px 6px -1px rgba(79, 70, 229, 0.3), 0 2px 4px -1px rgba(79, 70, 229, 0.2);
 }
 
 .btn-primary:hover:not(:disabled) {
-  background-color: theme(colors.primary.700);
+  background: linear-gradient(135deg, theme(colors.primary.700) 0%, theme(colors.primary.800) 100%);
+  border-color: theme(colors.primary.800);
+  box-shadow: 0 10px 15px -3px rgba(79, 70, 229, 0.4), 0 4px 6px -2px rgba(79, 70, 229, 0.3);
+  transform: translateY(-2px);
+}
+
+.btn-primary:active:not(:disabled) {
+  transform: translateY(0);
+  box-shadow: 0 2px 4px -1px rgba(79, 70, 229, 0.2);
 }
 
 .btn-primary:focus {
   ring-color: theme(colors.primary.500);
 }
 
+/* Secondary Button */
 .btn-secondary {
-  background-color: theme(colors.gray.200);
-  color: theme(colors.gray.900);
+  background-color: white;
+  color: theme(colors.gray.700);
+  border: 1px solid theme(colors.gray.300);
+  box-shadow: var(--shadow-elevated);
 }
 
 .btn-secondary:hover:not(:disabled) {
-  background-color: theme(colors.gray.300);
+  background-color: theme(colors.gray.50);
+  border-color: theme(colors.gray.400);
+  box-shadow: var(--shadow-hover);
+  transform: translateY(-1px);
+}
+
+.btn-secondary:active:not(:disabled) {
+  transform: translateY(0);
+  box-shadow: var(--shadow-elevated);
 }
 
 .btn-secondary:focus {
   ring-color: theme(colors.gray.500);
 }
 
+/* Danger Button */
 .btn-danger {
-  background-color: theme(colors.red.600);
+  background: linear-gradient(135deg, theme(colors.red.600) 0%, theme(colors.red.700) 100%);
   color: white;
+  border: 1px solid theme(colors.red.700);
+  box-shadow: 0 4px 6px -1px rgba(220, 38, 38, 0.3), 0 2px 4px -1px rgba(220, 38, 38, 0.2);
 }
 
 .btn-danger:hover:not(:disabled) {
-  background-color: theme(colors.red.700);
+  background: linear-gradient(135deg, theme(colors.red.700) 0%, theme(colors.red.800) 100%);
+  border-color: theme(colors.red.800);
+  box-shadow: 0 10px 15px -3px rgba(220, 38, 38, 0.4), 0 4px 6px -2px rgba(220, 38, 38, 0.3);
+  transform: translateY(-2px);
+}
+
+.btn-danger:active:not(:disabled) {
+  transform: translateY(0);
+  box-shadow: 0 2px 4px -1px rgba(220, 38, 38, 0.2);
 }
 
 .btn-danger:focus {
   ring-color: theme(colors.red.500);
 }
 
+/* Ghost Button */
 .btn-ghost {
   background-color: transparent;
   color: theme(colors.gray.700);
+  border: 1px solid transparent;
+  box-shadow: none;
 }
 
 .btn-ghost:hover:not(:disabled) {
   background-color: theme(colors.gray.100);
+  border-color: theme(colors.gray.200);
 }
 
 .btn-ghost:focus {
   ring-color: theme(colors.gray.500);
 }
 
-/* Form Inputs */
+/* ============================================
+   BOUTON DE DÉCONNEXION - Rouge au hover
+   ============================================ */
+
+.btn-logout {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  padding: 0.625rem 1.25rem;
+  border-radius: 0.5rem;
+  font-weight: 600;
+  font-size: 0.875rem;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  background-color: white;
+  color: theme(colors.gray.700);
+  border: 1px solid theme(colors.gray.300);
+  box-shadow: var(--shadow-elevated);
+}
+
+.btn-logout:hover {
+  background: linear-gradient(135deg, theme(colors.red.600) 0%, theme(colors.red.700) 100%);
+  color: white;
+  border-color: theme(colors.red.700);
+  box-shadow: 0 10px 15px -3px rgba(220, 38, 38, 0.4), 0 4px 6px -2px rgba(220, 38, 38, 0.3);
+  transform: translateY(-2px);
+}
+
+.btn-logout:active {
+  transform: translateY(0);
+  box-shadow: 0 2px 4px -1px rgba(220, 38, 38, 0.2);
+}
+
+/* ============================================
+   FORM INPUTS
+   ============================================ */
+
 .input {
   width: 100%;
-  padding: 0.5rem 1rem;
+  padding: 0.625rem 1rem;
+  margin-left: 0.8rem;
   border: 1px solid theme(colors.gray.300);
   border-radius: 0.5rem;
   transition: all 0.2s;
+  background-color: white;
+  font-size: 0.875rem;
 }
 
 .input:focus {
@@ -156,17 +243,21 @@ html {
 .label {
   display: block;
   font-size: 0.875rem;
-  font-weight: 500;
+  font-weight: 600;
   color: theme(colors.gray.700);
-  margin-bottom: 0.25rem;
+  margin-bottom: 0.375rem;
 }
 
-/* Cards */
+/* ============================================
+   CARDS
+   ============================================ */
+
 .card {
   background-color: white;
   border-radius: 0.75rem;
   padding: 1.5rem;
   box-shadow: var(--shadow-soft);
+  border: 1px solid theme(colors.gray.100);
   transition: all 0.2s;
 }
 
@@ -175,49 +266,63 @@ html {
   border-radius: 0.75rem;
   padding: 1.5rem;
   box-shadow: var(--shadow-soft);
+  border: 1px solid theme(colors.gray.100);
   transition: all 0.2s;
 }
 
 .card-hover:hover {
   box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
-  transform: translateY(-0.25rem);
+  transform: translateY(-4px);
+  border-color: theme(colors.primary.200);
 }
 
-/* Badge */
+/* ============================================
+   BADGES
+   ============================================ */
+
 .badge {
   display: inline-flex;
   align-items: center;
-  padding: 0.125rem 0.625rem;
+  padding: 0.25rem 0.75rem;
   border-radius: 9999px;
   font-size: 0.75rem;
-  font-weight: 500;
+  font-weight: 600;
+  border: 1px solid transparent;
 }
 
 .badge-primary {
   background-color: theme(colors.primary.100);
   color: theme(colors.primary.800);
+  border-color: theme(colors.primary.200);
 }
 
 .badge-success {
   background-color: theme(colors.green.100);
   color: theme(colors.green.800);
+  border-color: theme(colors.green.200);
 }
 
 .badge-warning {
   background-color: theme(colors.yellow.100);
   color: theme(colors.yellow.800);
+  border-color: theme(colors.yellow.200);
 }
 
 .badge-danger {
   background-color: theme(colors.red.100);
   color: theme(colors.red.800);
+  border-color: theme(colors.red.200);
 }
 
-/* Table */
+/* ============================================
+   TABLE
+   ============================================ */
+
 .table-container {
   overflow-x: auto;
-  border-radius: 0.5rem;
+  border-radius: 0.75rem;
   border: 1px solid theme(colors.gray.200);
+  background-color: white;
 }
 
 .table {
@@ -227,14 +332,15 @@ html {
 
 .table thead {
   background-color: theme(colors.gray.50);
+  border-bottom: 2px solid theme(colors.gray.200);
 }
 
 .table th {
-  padding: 0.75rem 1.5rem;
+  padding: 0.875rem 1.5rem;
   text-align: left;
   font-size: 0.75rem;
-  font-weight: 500;
-  color: theme(colors.gray.500);
+  font-weight: 600;
+  color: theme(colors.gray.600);
   text-transform: uppercase;
   letter-spacing: 0.05em;
 }
@@ -255,7 +361,10 @@ html {
   background-color: theme(colors.gray.50);
 }
 
-/* Utilities */
+/* ============================================
+   UTILITIES
+   ============================================ */
+
 .text-balance {
   text-wrap: balance;
 }
@@ -269,7 +378,10 @@ html {
   scrollbar-width: none;
 }
 
-/* Custom animations */
+/* ============================================
+   ANIMATIONS
+   ============================================ */
+
 @keyframes slideInRight {
   from {
     transform: translateX(100%);
@@ -308,4 +420,155 @@ html {
 
 .animate-spin {
   animation: spin 1s linear infinite;
+}
+
+/* ============================================
+   DARK MODE SUPPORT (à activer)
+   ============================================ */
+
+@media (prefers-color-scheme: dark) {
+  /* Sera activé plus tard avec le toggle */
+}
+
+
+/* ============================================
+   DARK MODE
+   ============================================ */
+
+.dark {
+  color-scheme: dark;
+}
+
+.dark body {
+  background-color: #0f172a; /* slate-900 */
+  color: #e2e8f0; /* slate-200 */
+}
+
+.dark .card,
+.dark .card-hover {
+  background-color: theme(colors.gray.800);
+  border-color: theme(colors.gray.700);
+}
+
+.dark .input {
+  background-color: theme(colors.gray.700);
+  border-color: theme(colors.gray.600);
+  color: theme(colors.gray.100);
+}
+
+.dark .input:focus {
+  border-color: theme(colors.primary.500);
+  ring-color: theme(colors.primary.500);
+}
+
+.dark .label {
+  color: theme(colors.gray.300);
+}
+
+.dark .btn-secondary {
+  background-color: theme(colors.gray.700);
+  color: theme(colors.gray.100);
+  border-color: theme(colors.gray.600);
+}
+
+.dark .btn-secondary:hover:not(:disabled) {
+  background-color: theme(colors.gray.600);
+  border-color: theme(colors.gray.500);
+}
+
+.dark .btn-logout {
+  background-color: theme(colors.gray.700);
+  color: theme(colors.gray.100);
+  border-color: theme(colors.gray.600);
+}
+
+.dark .btn-logout:hover {
+  background: linear-gradient(135deg, theme(colors.red.600) 0%, theme(colors.red.700) 100%);
+  color: white;
+  border-color: theme(colors.red.700);
+}
+
+.dark .table-container {
+  background-color: theme(colors.gray.800);
+  border-color: theme(colors.gray.700);
+}
+
+.dark .table thead {
+  background-color: theme(colors.gray.900);
+  border-color: theme(colors.gray.700);
+}
+
+.dark .table th {
+  color: theme(colors.gray.400);
+}
+
+.dark .table td {
+  color: theme(colors.gray.200);
+  border-color: theme(colors.gray.700);
+}
+
+.dark .table tbody tr:hover {
+  background-color: theme(colors.gray.700);
+}
+
+.dark .badge-primary {
+  background-color: theme(colors.primary.900);
+  color: theme(colors.primary.200);
+  border-color: theme(colors.primary.700);
+}
+
+.dark .badge-success {
+  background-color: theme(colors.green.900);
+  color: theme(colors.green.200);
+  border-color: theme(colors.green.700);
+}
+
+.dark .badge-warning {
+  background-color: theme(colors.yellow.900);
+  color: theme(colors.yellow.200);
+  border-color: theme(colors.yellow.700);
+}
+
+.dark .badge-danger {
+  background-color: theme(colors.red.900);
+  color: theme(colors.red.200);
+  border-color: theme(colors.red.700);
+}
+
+
+.dark h1,
+.dark h2,
+.dark h3,
+.dark h4,
+.dark h5,
+.dark h6 {
+  color: #f1f5f9; /* slate-100 */
+}
+
+.dark p {
+  color: #cbd5e1; /* slate-300 */
+}
+
+.dark .text-gray-900 {
+  color: #f1f5f9 !important; /* slate-100 */
+}
+
+.dark .text-gray-800 {
+  color: #e2e8f0 !important; /* slate-200 */
+}
+
+.dark .text-gray-700 {
+  color: #cbd5e1 !important; /* slate-300 */
+}
+
+.dark .text-gray-600 {
+  color: #94a3b8 !important; /* slate-400 */
+}
+
+.dark .text-gray-500 {
+  color: #64748b !important; /* slate-500 */
+}
+
+.dark .text-gray-400 {
+  color: #475569 !important; /* slate-600 */
 }

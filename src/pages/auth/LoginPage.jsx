@@ -162,7 +162,7 @@ const LoginPage = () => {
                         <button
                             type="submit"
                             disabled={loading}
-                            className="btn-primary w-full h-12 text-base"
+                            className="btn-primary w-full h-12 text-base ml-4"
                         >
                             {loading ? (
                                 <>

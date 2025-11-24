@@ -16,6 +16,8 @@ import UsersPage from './pages/users/UsersPage';
 import LivePage from './pages/live/LivePage';
 import ProfilePage from './pages/users/ProfilePage';
 import NotFoundPage from './pages/notfound/NotFoundPage';
+//import useThemeStore from './store/themeStore';
+
 
 // Protected Route Component
 const ProtectedRoute = ({ children, requiredRole }) => {
@@ -65,6 +67,8 @@ const PublicRoute = ({ children }) => {
 
 function App() {
     const { checkAuth } = useAuthStore();
+    //const { theme, setTheme } = useThemeStore();
+    //setTheme(theme);
 
     useEffect(() => {
         checkAuth();
