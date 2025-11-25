@@ -6,6 +6,7 @@ import { z } from 'zod';
 import toast from 'react-hot-toast';
 import { sermonService } from '../../services';
 import LoadingSpinner from '../common/LoadingSpinner';
+import useThemeStore from '../../store/themeStore';
 
 const sermonSchema = z.object({
     title: z.string().min(3, 'Le titre doit contenir au moins 3 caractères'),
@@ -100,18 +101,18 @@ const SermonModal = ({ sermon, onClose }) => {
     };
 
     return (
-        <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
-            <div className="bg-white rounded-xl shadow-xl max-w-2xl w-full max-h-[90vh] overflow-y-auto">
+        <div className={`fixed inset-0 ${theme === 'dark' ? 'bg-black/80' : 'bg-black/50'} flex items-center justify-center z-50 p-4`}>
+            <div className={`${theme === 'dark' ? 'bg-gray-800 border border-gray-700' : 'bg-white'} rounded-xl shadow-xl max-w-2xl w-full max-h-[90vh] overflow-y-auto`}>
                 {/* Header */}
-                <div className="flex items-center justify-between p-6 border-b">
-                    <h2 className="text-2xl font-bold text-gray-900">
+                <div className={`flex items-center justify-between p-6 ${theme === 'dark' ? 'border-gray-700' : 'border-gray-200'} border-b`}>
+                    <h2 className={`text-2xl font-bold ${theme === 'dark' ? 'text-white' : 'text-gray-900'}`}>
                         {sermon ? 'Modifier le sermon' : 'Nouveau sermon'}
                     </h2>
                     <button
                         onClick={onClose}
-                        className="p-2 hover:bg-gray-100 rounded-lg transition-colors"
+                        className={`p-2 rounded-lg transition-colors ${theme === 'dark' ? 'hover:bg-gray-700' : 'hover:bg-gray-100'}`}
                     >
-                        <X className="w-6 h-6" />
+                        <X className={`w-6 h-6 ${theme === 'dark' ? 'text-gray-300' : 'text-gray-900'}`} />
                     </button>
                 </div>
 
@@ -151,7 +152,11 @@ const SermonModal = ({ sermon, onClose }) => {
                         <label className="label">
                             Image * {sermon && '(laisser vide pour ne pas modifier)'}
                         </label>
-                        <div className="border-2 border-dashed border-gray-300 rounded-lg p-6 text-center hover:border-primary-500 transition-colors">
+                        <div className={`border-2 border-dashed rounded-lg p-6 text-center transition-colors ${
+                            theme === 'dark'
+                                ? 'border-gray-600 bg-gray-900 hover:border-primary-500'
+                                : 'border-gray-300 hover:border-primary-500'
+                        }`}>
                             <input
                                 type="file"
                                 accept="image/*"
@@ -170,12 +175,12 @@ const SermonModal = ({ sermon, onClose }) => {
                                         className="w-full max-h-48 object-contain rounded-lg mb-2"
                                     />
                                 ) : (
-                                    <ImageIcon className="w-12 h-12 text-gray-400 mb-2" />
+                                    <ImageIcon className={`w-12 h-12 mb-2 ${theme === 'dark' ? 'text-gray-500' : 'text-gray-400'}`} />
                                 )}
-                                <span className="text-sm text-gray-600 mb-1">
+                                <span className={`text-sm mb-1 ${theme === 'dark' ? 'text-gray-300' : 'text-gray-600'}`}>
                                     {imageFile ? imageFile.name : 'Cliquez pour sélectionner une image'}
                                 </span>
-                                <span className="text-xs text-gray-500">
+                                <span className={`text-xs ${theme === 'dark' ? 'text-gray-500' : 'text-gray-500'}`}>
                                     JPG, PNG - Max 10 MB
                                 </span>
                             </label>
@@ -187,7 +192,11 @@ const SermonModal = ({ sermon, onClose }) => {
                         <label className="label">
                             Fichier PDF * {sermon && '(laisser vide pour ne pas modifier)'}
                         </label>
-                        <div className="border-2 border-dashed border-gray-300 rounded-lg p-6 text-center hover:border-primary-500 transition-colors">
+                        <div className={`border-2 border-dashed rounded-lg p-6 text-center transition-colors ${
+                            theme === 'dark'
+                                ? 'border-gray-600 bg-gray-900 hover:border-primary-500'
+                                : 'border-gray-300 hover:border-primary-500'
+                        }`}>
                             <input
                                 type="file"
                                 accept="application/pdf"
@@ -199,11 +208,11 @@ const SermonModal = ({ sermon, onClose }) => {
                                 htmlFor="pdf-upload"
                                 className="cursor-pointer flex flex-col items-center"
                             >
-                                <BookOpen className="w-12 h-12 text-gray-400 mb-2" />
-                                <span className="text-sm text-gray-600 mb-1">
+                                <BookOpen className={`w-12 h-12 mb-2 ${theme === 'dark' ? 'text-gray-500' : 'text-gray-400'}`} />
+                                <span className={`text-sm mb-1 ${theme === 'dark' ? 'text-gray-300' : 'text-gray-600'}`}>
                                     {pdfFile ? pdfFile.name : 'Cliquez pour sélectionner un PDF'}
                                 </span>
-                                <span className="text-xs text-gray-500">
+                                <span className={`text-xs ${theme === 'dark' ? 'text-gray-500' : 'text-gray-500'}`}>
                                     PDF - Max 50 MB
                                 </span>
                             </label>

@@ -6,6 +6,7 @@ import { z } from 'zod';
 import toast from 'react-hot-toast';
 import { postService } from '../../services';
 import LoadingSpinner from '../common/LoadingSpinner';
+import useThemeStore from '../../store/themeStore';
 
 const postSchema = z.object({
     content: z.string().min(10, 'Le contenu doit contenir au moins 10 caractères'),
@@ -14,6 +15,7 @@ const postSchema = z.object({
 });
 
 const PostModal = ({ post, onClose }) => {
+    const { theme } = useThemeStore();
     const [loading, setLoading] = useState(false);
     const [mediaFile, setMediaFile] = useState(null);
     const [mediaPreview, setMediaPreview] = useState(post?.mediaUrl || null);
@@ -97,18 +99,18 @@ const PostModal = ({ post, onClose }) => {
     };
 
     return (
-        <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
-            <div className="bg-white rounded-xl shadow-xl max-w-2xl w-full max-h-[90vh] overflow-y-auto">
+        <div className={`fixed inset-0 ${theme === 'dark' ? 'bg-black/80' : 'bg-black/50'} flex items-center justify-center z-50 p-4`}>
+            <div className={`${theme === 'dark' ? 'bg-gray-800 border border-gray-700' : 'bg-white'} rounded-xl shadow-xl max-w-2xl w-full max-h-[90vh] overflow-y-auto`}>
                 {/* Header */}
-                <div className="flex items-center justify-between p-6 border-b">
-                    <h2 className="text-2xl font-bold text-gray-900">
+                <div className={`flex items-center justify-between p-6 ${theme === 'dark' ? 'border-gray-700' : 'border-gray-200'} border-b`}>
+                    <h2 className={`text-2xl font-bold ${theme === 'dark' ? 'text-white' : 'text-gray-900'}`}>
                         {post ? 'Modifier la publication' : 'Nouvelle publication'}
                     </h2>
                     <button
                         onClick={onClose}
-                        className="p-2 hover:bg-gray-100 rounded-lg transition-colors"
+                        className={`p-2 rounded-lg transition-colors ${theme === 'dark' ? 'hover:bg-gray-700' : 'hover:bg-gray-100'}`}
                     >
-                        <X className="w-6 h-6" />
+                        <X className={`w-6 h-6 ${theme === 'dark' ? 'text-gray-300' : 'text-gray-900'}`} />
                     </button>
                 </div>
 
@@ -120,8 +122,10 @@ const PostModal = ({ post, onClose }) => {
                         <div className="grid grid-cols-2 gap-4">
                             <label className={`flex items-center justify-center p-4 border-2 rounded-lg cursor-pointer transition-all ${
                                 selectedType === 'image'
-                                    ? 'border-primary-500 bg-primary-50'
-                                    : 'border-gray-200 hover:border-gray-300'
+                                    ? 'border-primary-500 bg-primary-50 dark:bg-primary-900/20'
+                                    : theme === 'dark'
+                                        ? 'border-gray-600 hover:border-gray-500'
+                                        : 'border-gray-200 hover:border-gray-300'
                             }`}>
                                 <input
                                     {...register('type')}
@@ -135,8 +139,10 @@ const PostModal = ({ post, onClose }) => {
                             </label>
                             <label className={`flex items-center justify-center p-4 border-2 rounded-lg cursor-pointer transition-all ${
                                 selectedType === 'video'
-                                    ? 'border-primary-500 bg-primary-50'
-                                    : 'border-gray-200 hover:border-gray-300'
+                                    ? 'border-primary-500 bg-primary-50 dark:bg-primary-900/20'
+                                    : theme === 'dark'
+                                        ? 'border-gray-600 hover:border-gray-500'
+                                        : 'border-gray-200 hover:border-gray-300'
                             }`}>
                                 <input
                                     {...register('type')}
@@ -150,7 +156,7 @@ const PostModal = ({ post, onClose }) => {
                             </label>
                         </div>
                         {post && (
-                            <p className="text-xs text-gray-500 mt-2">
+                            <p className={`text-xs mt-2 ${theme === 'dark' ? 'text-gray-500' : 'text-gray-500'}`}>
                                 Le type de contenu ne peut pas être modifié
                             </p>
                         )}
@@ -187,7 +193,11 @@ const PostModal = ({ post, onClose }) => {
                             {post && ' (ne peut pas être modifié)'}
                         </label>
                         {!post && (
-                            <div className="border-2 border-dashed border-gray-300 rounded-lg p-6 text-center hover:border-primary-500 transition-colors">
+                            <div className={`border-2 border-dashed rounded-lg p-6 text-center transition-colors ${
+                                theme === 'dark'
+                                    ? 'border-gray-600 bg-gray-900 hover:border-primary-500'
+                                    : 'border-gray-300 hover:border-primary-500'
+                            }`}>
                                 <input
                                     type="file"
                                     accept={selectedType === 'video' ? 'video/*' : 'image/*'}
@@ -216,16 +226,16 @@ const PostModal = ({ post, onClose }) => {
                                     ) : (
                                         <>
                                             {selectedType === 'video' ? (
-                                                <Video className="w-12 h-12 text-gray-400 mb-2" />
+                                                <Video className={`w-12 h-12 mb-2 ${theme === 'dark' ? 'text-gray-500' : 'text-gray-400'}`} />
                                             ) : (
-                                                <ImageIcon className="w-12 h-12 text-gray-400 mb-2" />
+                                                <ImageIcon className={`w-12 h-12 mb-2 ${theme === 'dark' ? 'text-gray-500' : 'text-gray-400'}`} />
                                             )}
                                         </>
                                     )}
-                                    <span className="text-sm text-gray-600 mb-1">
+                                    <span className={`text-sm mb-1 ${theme === 'dark' ? 'text-gray-300' : 'text-gray-600'}`}>
                                         {mediaFile ? mediaFile.name : 'Cliquez pour sélectionner un fichier'}
                                     </span>
-                                    <span className="text-xs text-gray-500">
+                                    <span className={`text-xs ${theme === 'dark' ? 'text-gray-500' : 'text-gray-500'}`}>
                                         {selectedType === 'video'
                                             ? 'MP4, MOV, AVI - Max 100 MB'
                                             : 'JPG, PNG, WEBP - Max 10 MB'}
@@ -234,7 +244,7 @@ const PostModal = ({ post, onClose }) => {
                             </div>
                         )}
                         {post && (
-                            <div className="border rounded-lg p-4 bg-gray-50">
+                            <div className={`border rounded-lg p-4 ${theme === 'dark' ? 'bg-gray-900 border-gray-700' : 'bg-gray-50 border-gray-200'}`}>
                                 {post.type === 'video' ? (
                                     <video
                                         src={post.mediaUrl}
