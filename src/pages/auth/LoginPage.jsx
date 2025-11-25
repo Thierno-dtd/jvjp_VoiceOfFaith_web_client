@@ -39,7 +39,7 @@ const LoginPage = () => {
     return (
         <div className="min-h-screen flex">
             {/* Left side - Branding */}
-            <div className="hidden lg:flex lg:w-1/2 bg-gradient-to-br from-primary-600 to-primary-800 p-12 flex-col justify-between">
+            <div className="hidden lg:flex lg:w-1/2 bg-[url('/bg.png')] bg-cover bg-center bg-no-repeat p-12 flex-col justify-between">
                 <div>
                     <h1 className="text-4xl font-bold text-white mb-4">
                         Voice of Faith
@@ -49,45 +49,9 @@ const LoginPage = () => {
                     </p>
                 </div>
 
-                <div className="space-y-6 text-white">
-                    <div className="flex items-start space-x-4">
-                        <div className="w-12 h-12 rounded-full bg-white/20 flex items-center justify-center flex-shrink-0">
-                            <span className="text-2xl">🎵</span>
-                        </div>
-                        <div>
-                            <h3 className="font-semibold mb-1">Gestion des contenus</h3>
-                            <p className="text-primary-100 text-sm">
-                                Audios, sermons, événements et publications
-                            </p>
-                        </div>
-                    </div>
 
-                    <div className="flex items-start space-x-4">
-                        <div className="w-12 h-12 rounded-full bg-white/20 flex items-center justify-center flex-shrink-0">
-                            <span className="text-2xl">📊</span>
-                        </div>
-                        <div>
-                            <h3 className="font-semibold mb-1">Statistiques détaillées</h3>
-                            <p className="text-primary-100 text-sm">
-                                Suivez les performances et l'engagement
-                            </p>
-                        </div>
-                    </div>
 
-                    <div className="flex items-start space-x-4">
-                        <div className="w-12 h-12 rounded-full bg-white/20 flex items-center justify-center flex-shrink-0">
-                            <span className="text-2xl">👥</span>
-                        </div>
-                        <div>
-                            <h3 className="font-semibold mb-1">Gestion d'équipe</h3>
-                            <p className="text-primary-100 text-sm">
-                                Gérez les utilisateurs et leurs permissions
-                            </p>
-                        </div>
-                    </div>
-                </div>
-
-                <div className="text-primary-100 text-sm">
+                <div className="text-primary-100 text-sm mt-6">
                     © 2025 Voice of Faith. Tous droits réservés.
                 </div>
             </div>
@@ -171,7 +135,7 @@ const LoginPage = () => {
                                 </>
                             ) : (
                                 <>
-                                    <LogIn className="w-5 h-5 mr-2" />
+                                    <LogIn className="w-4 h-4 mr-2" />
                                     Se connecter
                                 </>
                             )}

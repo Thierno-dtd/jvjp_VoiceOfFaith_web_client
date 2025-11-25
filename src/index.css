@@ -91,6 +91,15 @@ html {
   box-shadow: 0 4px 6px -1px rgba(79, 70, 229, 0.3), 0 2px 4px -1px rgba(79, 70, 229, 0.2);
 }
 
+.btn-primary-u {
+  background: linear-gradient(135deg, theme(colors.primary.600) 0%, theme(colors.primary.700) 100%);
+  color: white;
+  border: 1px solid theme(colors.primary.700);
+  border-radius: .35rem;
+  padding: .375rem .75rem;
+  box-shadow: 0 4px 6px -1px rgba(79, 70, 229, 0.3), 0 2px 4px -1px rgba(79, 70, 229, 0.2);
+}
+
 .btn-primary:hover:not(:disabled) {
   background: linear-gradient(135deg, theme(colors.primary.700) 0%, theme(colors.primary.800) 100%);
   border-color: theme(colors.primary.800);
@@ -639,3 +648,4 @@ html {
   padding: 0.125rem 0.25rem;
   border-radius: 0.25rem;
 }
+

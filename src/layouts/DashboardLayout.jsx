@@ -197,7 +197,7 @@ const DashboardLayout = () => {
 
                         <button
                             onClick={handleLogout}
-                            className="mt-3 w-full flex items-center justify-center px-4 py-2 text-sm font-medium text-gray-700 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors"
+                            className="mt-3 w-full flex items-center justify-center px-4 py-2 text-sm font-medium text-gray-700 bg-gray-100 rounded-lg hover:bg-red-400 transition-colors"
                         >
                             <LogOut className="w-4 h-4 mr-2" />
                             Déconnexion
@@ -249,27 +249,31 @@ const DashboardLayout = () => {
                         </nav>
 
                         <div className="border-t p-4 ">
-                            <NavLink
-                                key='profile'
-                                to='/profile'
-                            >
-                                <div className="flex items-center">
-                                    <div className="w-10 h-10 rounded-full bg-primary-100 flex items-center justify-center">
-                                        <User className="w-5 h-5 text-primary-700" />
-                                    </div>
-                                    <div className="ml-3 flex-1">
-                                        <p className="text-sm font-medium text-gray-900 truncate">
-                                            {user?.displayName}
-                                        </p>
-                                        <span className={`inline-flex text-xs px-2 py-0.5 rounded-full ${roleBadge.color}`}>
+                            <div className="flex items-center justify-between">
+                                <NavLink
+                                    key='profile'
+                                    to='/profile'
+                                    className="pb-5"
+                                >
+                                    <div className="flex items-center">
+                                        <div className="w-10 h-10 rounded-full bg-primary-100 flex items-center justify-center">
+                                            <User className="w-5 h-5 text-primary-700" />
+                                        </div>
+                                        <div className="ml-3 flex-1">
+                                            <p className="text-sm font-medium text-gray-900 truncate">
+                                                {user?.displayName}
+                                            </p>
+                                            <span className={`inline-flex text-xs px-2 py-0.5 rounded-full ${roleBadge.color}`}>
                   {roleBadge.label}
                 </span>
+                                        </div>
                                     </div>
-                                </div>
-                            </NavLink>
+                                </NavLink>
+                            </div>
+
                             <button
                                 onClick={handleLogout}
-                                className="w-full btn-secondary"
+                                className="w-full btn-secondary hover:bg-red-300"
                             >
                                 <LogOut className="w-4 h-4 mr-2" />
                                 Déconnexion

@@ -9,7 +9,13 @@ import { fr } from 'date-fns/locale';
 const ProfilePage = () => {
     const navigate = useNavigate();
     const { user, logout } = useAuthStore();
+    const createdAt = user?.createdAt?._seconds
+        ? new Date(user.createdAt._seconds * 1000)
+        : null;
 
+    const lastLogout = user?.lastLogout?._seconds
+        ? new Date(user.lastLogout._seconds * 1000)
+        : null;
     const handleLogout = async () => {
         try {
             await logout();
@@ -77,7 +83,7 @@ const ProfilePage = () => {
                         {user?.createdAt && (
                             <p className="text-sm text-gray-500 flex items-center gap-2">
                                 <Calendar className="w-4 h-4" />
-                                Membre depuis le {format(new Date(user.createdAt), 'dd MMMM yyyy', { locale: fr })}
+                                Membre depuis le {createdAt ? format(createdAt, 'dd/MM/yyyy HH:mm', { locale: fr }) : '-'}
                             </p>
                         )}
                     </div>
@@ -163,15 +169,12 @@ const ProfilePage = () => {
                     Informations système
                 </h3>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm">
-                    <div>
-                        <p className="text-gray-600">ID Utilisateur</p>
-                        <p className="font-mono text-gray-900">{user?.uid}</p>
-                    </div>
+
                     {user?.lastLogout && (
                         <div>
                             <p className="text-gray-600">Dernière déconnexion</p>
                             <p className="text-gray-900">
-                                {format(new Date(user.lastLogout), 'dd/MM/yyyy HH:mm', { locale: fr })}
+                                {lastLogout ? format(lastLogout, 'dd/MM/yyyy HH:mm', { locale: fr }) : '-'}
                             </p>
                         </div>
                     )}
