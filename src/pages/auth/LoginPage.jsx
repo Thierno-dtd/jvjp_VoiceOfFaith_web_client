@@ -51,9 +51,7 @@ const LoginPage = () => {
 
 
 
-                <div className="text-primary-100 text-sm mt-6">
-                    © 2025 Voice of Faith. Tous droits réservés.
-                </div>
+
             </div>
 
             {/* Right side - Login Form */}

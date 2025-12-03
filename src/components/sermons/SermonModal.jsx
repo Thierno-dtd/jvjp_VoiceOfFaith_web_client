@@ -14,6 +14,7 @@ const sermonSchema = z.object({
 });
 
 const SermonModal = ({ sermon, onClose }) => {
+    const { theme } = useThemeStore();
     const [loading, setLoading] = useState(false);
     const [imageFile, setImageFile] = useState(null);
     const [pdfFile, setPdfFile] = useState(null);
