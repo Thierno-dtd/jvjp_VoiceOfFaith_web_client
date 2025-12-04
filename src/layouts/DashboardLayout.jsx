@@ -14,7 +14,7 @@ import {
     LogOut,
     Menu,
     X,
-    ChevronDown
+    DollarSign
 } from 'lucide-react';
 import useAuthStore from '../store/authStore';
 import toast from 'react-hot-toast';
@@ -72,6 +72,12 @@ const DashboardLayout = () => {
             href: '/live',
             icon: Radio,
             roles: ['admin', 'pasteur', 'media']
+        },
+        {
+            name: 'Donations',
+            href: '/donations',
+            icon: DollarSign,
+            roles: ['admin', 'pasteur']
         },
         {
             name: 'Utilisateurs',

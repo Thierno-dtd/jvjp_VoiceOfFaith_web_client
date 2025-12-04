@@ -15,6 +15,7 @@ import PostsPage from './pages/posts/PostsPage';
 import UsersPage from './pages/users/UsersPage';
 import LivePage from './pages/live/LivePage';
 import ProfilePage from './pages/users/ProfilePage';
+import DonationsPage from './pages/donations/DonationsPage';
 import NotFoundPage from './pages/notfound/NotFoundPage';
 //import useThemeStore from './store/themeStore';
 
@@ -105,6 +106,7 @@ function App() {
                         <Route path="posts" element={<PostsPage />} />
                         <Route path="live" element={<LivePage />} />
                         <Route path="profile" element={<ProfilePage />} />
+                        <Route path="donations" element={<DonationsPage />} />
 
                         {/* Admin only routes */}
                         <Route

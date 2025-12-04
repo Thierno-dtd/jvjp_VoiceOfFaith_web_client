@@ -76,6 +76,17 @@ export const liveService = {
     sendNotification: (data) => api.post('/admin/live/notify', data)
 };
 
+// ==================== DONATIONS ==================== ✅ NOUVEAU
+export const donationService = {
+    getAllDonations: (params) => api.get('/admin/donations', { params }),
+    getDonationById: (id) => api.get(`/admin/donations/${id}`),
+    getDonationStats: (params) => api.get('/admin/donations/stats', { params }),
+    exportDonations: (params) => api.get('/admin/donations/export', {
+        params,
+        responseType: 'blob'
+    })
+};
+
 export default {
     user: userService,
     audio: audioService,
@@ -83,5 +94,6 @@ export default {
     event: eventService,
     post: postService,
     stats: statsService,
-    live: liveService
+    live: liveService,
+    donation: donationService
 };
