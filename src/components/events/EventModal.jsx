@@ -10,9 +10,9 @@ import useThemeStore from '../../store/themeStore';
 
 const eventSchema = z.object({
     title: z.string().min(3, 'Le titre doit contenir au moins 3 caractères'),
-    description: z.string().optional(),
+    description: z.string(),
     startDate: z.string().min(1, 'La date de début est requise'),
-    endDate: z.string().optional(),
+    endDate: z.string(),
     location: z.string().optional()
 });
 
