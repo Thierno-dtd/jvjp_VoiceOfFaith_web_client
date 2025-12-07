@@ -37,7 +37,7 @@ const InviteUserModal = ({ onClose }) => {
             onClose();
         } catch (error) {
             console.error(error);
-            toast.error(error.response?.data?.message || 'Une erreur est survenue');
+            toast.error(error.response?.data?.error?.message || 'Une erreur est survenue');
         } finally {
             setLoading(false);
         }

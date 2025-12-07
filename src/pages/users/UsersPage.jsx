@@ -6,6 +6,7 @@ import LoadingSpinner from '../../components/common/LoadingSpinner';
 import InviteUserModal from '../../components/users/InviteUserModal';
 import { format } from 'date-fns';
 import { fr } from 'date-fns/locale';
+import useAuthStore from "../../store/authStore.js";
 
 const UsersPage = () => {
     const [users, setUsers] = useState([]);
@@ -13,6 +14,12 @@ const UsersPage = () => {
     const [searchTerm, setSearchTerm] = useState('');
     const [selectedRole, setSelectedRole] = useState('all');
     const [isModalOpen, setIsModalOpen] = useState(false);
+    const { user } = useAuthStore();
+
+    const SUPER_ADMIN_EMAIL = "davidouthe2@gmail.com";
+
+    const isSuperAdmin = user?.email === SUPER_ADMIN_EMAIL;
+    const isAdmin = user?.role === "admin" || isSuperAdmin;
 
     const roles = [
         { value: 'all', label: 'Tous les rôles' },
@@ -55,6 +62,19 @@ const UsersPage = () => {
             console.error(error);
         }
     };
+
+    const isRoleSelectDisabled = (targetUser) => {
+        if (!isAdmin) return true;
+
+        if (targetUser.email === SUPER_ADMIN_EMAIL) return true;
+
+        if (isSuperAdmin && targetUser.email !== SUPER_ADMIN_EMAIL) return false;
+
+        if (!isSuperAdmin && targetUser.role === "admin") return true;
+
+        return false;
+    };
+
 
     const handleResendInvitation = async (id) => {
         try {
@@ -248,6 +268,7 @@ const UsersPage = () => {
                                     <td>
                                         <select
                                             value={user.role}
+                                            disabled={isRoleSelectDisabled(user)}
                                             onChange={(e) => handleRoleChange(user.id, e.target.value)}
                                             className="text-sm border border-gray-300 rounded px-2 py-1"
                                         >
@@ -284,6 +305,7 @@ const UsersPage = () => {
                                             )}
                                             <button
                                                 onClick={() => handleDelete(user.id)}
+                                                disabled={isRoleSelectDisabled(user)}
                                                 className="p-2 text-red-600 hover:bg-red-50 rounded-lg"
                                                 title="Supprimer"
                                             >
